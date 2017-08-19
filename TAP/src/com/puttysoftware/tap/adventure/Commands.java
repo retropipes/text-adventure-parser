@@ -1,0 +1,40 @@
+package com.puttysoftware.tap.adventure;
+
+class Commands {
+    static final String ROOM_MAIN = "main";
+    static final String MAIN_COMMAND_START = "start";
+    static final String MAIN_COMMAND_SYNONYM_TABLE = "syntab";
+    static final String ROOM_DELIMITER = "[";
+    static final String RESULT_DELIMITER = "=";
+    static final String SPECIAL_DELIMITER = "[";
+    static final String SPECIAL_END_DELIMITER = "]";
+    static final String OMNI_COMMAND_SHOW = "show";
+    static final String OMNI_SHOW_ARG_ITEMS = "items";
+    static final String OMNI_SHOW_ARG_INVENTORY = "inventory";
+    static final String OMNI_SHOW_ARG_STATE = "state";
+    static final String OMNI_SHOW_ARG_FORM = "form";
+    static final String OMNI_SHOW_ARG_QUESTS = "quests";
+    static final String OMNI_SHOW_ARG_QUEST_DETAILS = "quest details";
+    static final String CHAIN_COMMAND_DELIM = " && ";
+    static final String SPECIAL_COMMAND_WARP = "warp";
+    static final String SPECIAL_COMMAND_KILL = "kill";
+    static final String SPECIAL_COMMAND_GRAB = "grab";
+    static final String SPECIAL_COMMAND_HAVE = "have";
+    static final String SPECIAL_COMMAND_DROP = "drop";
+    static final String SPECIAL_COMMAND_LOSE = "lose";
+    static final String SPECIAL_COMMAND_ONCE_GRAB = "oncegrab";
+    static final String SPECIAL_COMMAND_GAIN = "gain";
+    static final String SPECIAL_COMMAND_ONCE_GAIN = "oncegain";
+    static final String SPECIAL_COMMAND_ALTER_STATE = "alter";
+    static final String SPECIAL_COMMAND_CHECK_STATE = "check";
+    static final String SPECIAL_COMMAND_QUEST = "quest";
+    static final String SPECIAL_QUEST_ARG_BEGIN = "begin";
+    static final String SPECIAL_QUEST_ARG_STATUS = "status";
+    static final String SPECIAL_QUEST_ARG_FINISH = "finish";
+    static final String SPECIAL_QUEST_ARG_ADD = "add";
+    static final String SPECIAL_QUEST_ARG_SET = "set";
+    static final String SPECIAL_QUEST_ARG_GET = "get";
+    static final String SPECIAL_QUEST_ARG_TEST = "test";
+    static final String HAVE_MULTIPLE = " & ";
+    static final String SYNONYM_SEPARATOR = ", ";
+}

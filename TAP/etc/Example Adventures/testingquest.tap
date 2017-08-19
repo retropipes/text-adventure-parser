@@ -1,0 +1,59 @@
+[main]
+Welcome to Test Adventure!
+start=testing room
+
+[testing room]
+This is a test room. You see a torch and key lying nearby.
+north=[warp portal]
+south=[warp flatlands]
+east=[have torch]
+=[warp light]
+=[warp darkness]
+west=[warp death]
+take torch=[grab torch]
+You take the torch and hold it in your hand.
+You already have a torch.
+take key=[grab key]
+You take the key and put it away.
+You already have a key.
+take all=[grab torch & key]
+You take the torch and the key. You hold the torch in your hand, and put the key away.
+You already have a torch and key.
+test=[quest status Test-Quest]
+=[quest begin Test-Quest] && You start a quest: Test Quest.
+=You are already working on the Test Quest.
+=You have completed the Test Quest already!
+
+[portal]
+This is a room with a teleport in it.
+south=[warp testing room]
+teleport=[kill Congratulations, you win!]
+
+[flatlands]
+This is a boring flatland.
+north=[warp testing room]
+
+[darkness]
+You can't see anything in this room.
+west=[warp testing room]
+
+[light]
+You can see this room now, thanks to your torch.
+west=[warp testing room]
+east=[have key]
+=[warp nowhere]
+=The door to the east is locked!
+
+[death]
+This room looks dangerous...
+east=[warp testing room]
+north=Oof! You bump into a wall!
+south=[kill You have fallen into a spike trap. Game Over!]
+
+[nowhere]
+You're standing on an invisible floor, in what appears to be the middle of nowhere.
+west=[warp light]
+test=[quest status Test-Quest]
+=You need to come back and do this later.
+=[quest finish Test-Quest] && You have completed Test Quest!
+=You have completed the Test Quest already!
