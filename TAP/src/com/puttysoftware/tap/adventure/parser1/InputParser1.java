@@ -13,6 +13,7 @@ import com.puttysoftware.tap.Game;
 import com.puttysoftware.tap.Messager;
 import com.puttysoftware.tap.TAP;
 import com.puttysoftware.tap.adventure.parsers.InputParser;
+import com.puttysoftware.tap.adventure.parsers.InputStripper;
 
 public class InputParser1 implements InputParser {
     // Fields
