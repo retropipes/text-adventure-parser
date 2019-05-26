@@ -75,10 +75,6 @@ public class GUIManager {
         this.guiFrame.setVisible(true);
     }
 
-    public void quitHandler() {
-        System.exit(0);
-    }
-
     void processCommandInput(final String cmd) {
         if (TAP.getGame().getAdventureManager().getLoaded()) {
             TAP.getGame().getAdventureManager().getAdventure()

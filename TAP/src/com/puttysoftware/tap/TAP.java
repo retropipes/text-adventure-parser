@@ -6,7 +6,7 @@ Any questions should be directed to the author via email at: tap@worldwizard.net
 package com.puttysoftware.tap;
 
 import com.puttysoftware.errorlogger.ErrorLogger;
-import com.puttysoftware.platform.Platform;
+import com.puttysoftware.integration.NativeIntegration;
 
 public class TAP {
     // Constants
@@ -26,14 +26,14 @@ public class TAP {
     public static void main(final String[] args) {
         try {
             // Integrate with host platform
-            Platform.hookLAF(TAP.PROGRAM_NAME);
+            NativeIntegration ni = new NativeIntegration();
+            ni.configureLookAndFeel();
+            ni.enableSuddenTermination();
+            ni.setQuitHandler(new Quitter());
+            // Start game
             TAP.game = new Game();
             TAP.game.postConstruct();
             TAP.game.getGUIManager().showGUI();
-            // Register platform hooks
-            Platform.hookQuit(TAP.getGame().getGUIManager(),
-                    TAP.getGame().getGUIManager().getClass()
-                            .getDeclaredMethod("quitHandler"));
         } catch (final Throwable t) {
             TAP.getErrorLogger().logError(t);
         }
