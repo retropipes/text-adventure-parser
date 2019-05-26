@@ -1,4 +1,4 @@
-package com.puttysoftware.tap.adventure.parser1;
+package com.puttysoftware.tap.adventure.parser0;
 
 class CompoundCommands {
     // Fields

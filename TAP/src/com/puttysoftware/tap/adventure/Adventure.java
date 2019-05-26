@@ -26,7 +26,7 @@ public class Adventure {
     // Methods
     protected void loadAdventure(final File advFile) throws IOException {
         this.loadData(advFile);
-        this.parser = ParserFactory.getParser(ParserFactory.GRAMMAR_1);
+        this.parser = ParserFactory.getParser(ParserFactory.GRAMMAR_0);
         this.parser.doInitial(this.advData);
     }
 

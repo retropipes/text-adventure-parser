@@ -3,7 +3,7 @@ Copyright (C) 2010 Eric Ahnell
 
 Any questions should be directed to the author via email at: tap@worldwizard.net
  */
-package com.puttysoftware.tap.adventure.parser1;
+package com.puttysoftware.tap.adventure.parser0;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -15,7 +15,7 @@ import com.puttysoftware.tap.TAP;
 import com.puttysoftware.tap.adventure.parsers.InputParser;
 import com.puttysoftware.tap.adventure.parsers.InputStripper;
 
-public class InputParser1 implements InputParser {
+public class InputParser0 implements InputParser {
     // Fields
     private ArrayList<String> advData;
     private final ArrayList<String> inventory;
@@ -28,7 +28,7 @@ public class InputParser1 implements InputParser {
     private int subCounter;
 
     // Constructor
-    public InputParser1() {
+    public InputParser0() {
         this.inventory = new ArrayList<>();
         this.grabbedAlready = new ArrayList<>();
         this.objectState = new Hashtable<>();
@@ -126,9 +126,9 @@ public class InputParser1 implements InputParser {
             preParsedCommand = InputStripper.stripInput(preParsedCommand);
             // Substitute synonyms
             preParsedCommand = this.substituteSynonyms(preParsedCommand);
-            if (InputParser1.isOmniCommand(preParsedCommand)) {
+            if (InputParser0.isOmniCommand(preParsedCommand)) {
                 // Found omni command
-                final int cmdLen = InputParser1
+                final int cmdLen = InputParser0
                         .omniCommandLength(preParsedCommand);
                 this.parseOmniCommand(preParsedCommand, cmdLen);
             } else {
@@ -142,7 +142,7 @@ public class InputParser1 implements InputParser {
             }
         }
         if (foundUnknown) {
-            InputParser1.displayUnknownCommandMessage(command);
+            InputParser0.displayUnknownCommandMessage(command);
         }
     }
 
@@ -212,7 +212,7 @@ public class InputParser1 implements InputParser {
                 final String terminator = res.substring(res.length() - 1);
                 if (!terminator.equals(Commands.SPECIAL_END_DELIMITER)) {
                     // Malformed special command found
-                    InputParser1.displayMalformedSpecialCommandMessage(res);
+                    InputParser0.displayMalformedSpecialCommandMessage(res);
                     return;
                 }
                 String warpKillTest = "";
@@ -235,7 +235,7 @@ public class InputParser1 implements InputParser {
                         alterArg = specialCmd.substring(6);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -259,7 +259,7 @@ public class InputParser1 implements InputParser {
                         checkArg = specialCmd.substring(6);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -305,7 +305,7 @@ public class InputParser1 implements InputParser {
                         questArg = specialCmd.substring(6);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -539,7 +539,7 @@ public class InputParser1 implements InputParser {
                         killArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -553,7 +553,7 @@ public class InputParser1 implements InputParser {
                         warpArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -569,7 +569,7 @@ public class InputParser1 implements InputParser {
                         onceGrabArg = specialCmd.substring(9);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -600,7 +600,7 @@ public class InputParser1 implements InputParser {
                         onceGainArg = specialCmd.substring(9);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -621,7 +621,7 @@ public class InputParser1 implements InputParser {
                         gainArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -643,7 +643,7 @@ public class InputParser1 implements InputParser {
                         grabArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -674,7 +674,7 @@ public class InputParser1 implements InputParser {
                         haveArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -714,7 +714,7 @@ public class InputParser1 implements InputParser {
                         dropArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -743,7 +743,7 @@ public class InputParser1 implements InputParser {
                         loseArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser1.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -771,7 +771,7 @@ public class InputParser1 implements InputParser {
             }
         } catch (final RuntimeException re) {
             // Parse error
-            InputParser1.displayParsingErrorMessage(res);
+            InputParser0.displayParsingErrorMessage(res);
         }
     }
 
@@ -860,7 +860,7 @@ public class InputParser1 implements InputParser {
             }
         } catch (final RuntimeException re) {
             // Parse error
-            InputParser1.displayParsingErrorMessage(cmd);
+            InputParser0.displayParsingErrorMessage(cmd);
         }
     }
 
