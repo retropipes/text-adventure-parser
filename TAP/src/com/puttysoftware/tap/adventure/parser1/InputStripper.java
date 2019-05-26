@@ -1,4 +1,4 @@
-package com.puttysoftware.tap.adventure;
+package com.puttysoftware.tap.adventure.parser1;
 
 class InputStripper {
     // Fields

@@ -10,20 +10,23 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.puttysoftware.tap.adventure.parsers.InputParser;
+import com.puttysoftware.tap.adventure.parsers.ParserFactory;
+
 public class Adventure {
     // Fields
     private final ArrayList<String> advData;
-    private final InputParser parser;
+    private InputParser parser;
 
     // Constructor
     public Adventure() {
         this.advData = new ArrayList<>();
-        this.parser = new InputParser();
     }
 
     // Methods
     protected void loadAdventure(final File advFile) throws IOException {
         this.loadData(advFile);
+        this.parser = ParserFactory.getParser(ParserFactory.GRAMMAR_1);
         this.parser.doInitial(this.advData);
     }
 
