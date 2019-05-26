@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 public class GUIManager {
     // Fields
@@ -32,7 +33,7 @@ public class GUIManager {
         this.ciHandler = new CommandInputHandler();
         this.guiFrame = new JFrame("Text Adventure Parser (TAP)");
         this.guiPane = this.guiFrame.getContentPane();
-        this.guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.guiFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.guiPane.setLayout(new BorderLayout());
         this.commandInput = new JTextField(60);
         this.commandInput.addActionListener(this.ciHandler);
