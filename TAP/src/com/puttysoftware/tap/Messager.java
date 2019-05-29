@@ -8,11 +8,11 @@ package com.puttysoftware.tap;
 public class Messager {
     public static void showMessage(final String msg) {
         final Game game = TAP.getGame();
-        game.getGUIManager().updateCommandOutput(msg);
+        game.updateCommandOutput(msg);
     }
 
     public static void showErrorMessage(final String msg) {
         final Game game = TAP.getGame();
-        game.getGUIManager().updateCommandOutput("ADVENTURE ERROR: " + msg);
+        game.updateCommandOutput("ADVENTURE ERROR: " + msg);
     }
 }

@@ -1,6 +1,6 @@
-package com.puttysoftware.tap.adventure;
+package com.puttysoftware.tap.adventure.parsers;
 
-class InputStripper {
+public class InputStripper {
     // Fields
     private static final String[] STRIP_BEGIN_WORDS = { "go ", "travel ", "[" };
     private static final String[] STRIP_MIDDLE_WORDS = { " a ", " an ", " the ",
@@ -13,7 +13,7 @@ class InputStripper {
     }
 
     // Methods
-    protected static String stripInput(final String in) {
+    public static String stripInput(final String in) {
         // Case normalization
         String out = in.toLowerCase();
         // Begin stripping

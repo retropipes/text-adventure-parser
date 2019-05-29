@@ -1,4 +1,4 @@
-package com.puttysoftware.tap.adventure;
+package com.puttysoftware.tap.adventure.parser0;
 
 class Commands {
     static final String ROOM_MAIN = "main";

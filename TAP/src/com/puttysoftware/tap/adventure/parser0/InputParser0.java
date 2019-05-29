@@ -3,17 +3,18 @@ Copyright (C) 2010 Eric Ahnell
 
 Any questions should be directed to the author via email at: tap@worldwizard.net
  */
-package com.puttysoftware.tap.adventure;
+package com.puttysoftware.tap.adventure.parser0;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import com.puttysoftware.tap.Game;
 import com.puttysoftware.tap.Messager;
 import com.puttysoftware.tap.TAP;
+import com.puttysoftware.tap.adventure.parsers.InputParser;
+import com.puttysoftware.tap.adventure.parsers.InputStripper;
 
-class InputParser {
+public class InputParser0 implements InputParser {
     // Fields
     private ArrayList<String> advData;
     private final ArrayList<String> inventory;
@@ -26,7 +27,7 @@ class InputParser {
     private int subCounter;
 
     // Constructor
-    public InputParser() {
+    public InputParser0() {
         this.inventory = new ArrayList<>();
         this.grabbedAlready = new ArrayList<>();
         this.objectState = new Hashtable<>();
@@ -37,13 +38,13 @@ class InputParser {
     }
 
     // Methods
-    protected void doInitial(final ArrayList<String> data) {
-        final Game game = TAP.getGame();
+    @Override
+    public void doInitial(final ArrayList<String> data) {
         this.advData = data;
         final boolean initialJump1 = this.warpToRoom(Commands.ROOM_MAIN);
         if (!initialJump1) {
             Messager.showErrorMessage("The main room doesn't exist!");
-            game.getAdventureManager().setLoaded(false);
+            TAP.getAdventureManager().setLoaded(false);
             return;
         }
         final boolean synonymCommand = this
@@ -55,7 +56,7 @@ class InputParser {
             final boolean initialJump2 = this.warpToRoom(synArg);
             if (!initialJump2) {
                 Messager.showErrorMessage("The synonym table doesn't exist!");
-                game.getAdventureManager().setLoaded(false);
+                TAP.getAdventureManager().setLoaded(false);
                 return;
             }
             // Load synonym list
@@ -84,12 +85,12 @@ class InputParser {
                     this.subCounter++;
                 }
             }
-            TAP.getGame().getGUIManager().clearCommandOutput();
+            TAP.getGame().clearCommandOutput();
             // Go back
             final boolean initialJump3 = this.warpToRoom(Commands.ROOM_MAIN);
             if (!initialJump3) {
                 Messager.showErrorMessage("The main room doesn't exist!");
-                game.getAdventureManager().setLoaded(false);
+                TAP.getAdventureManager().setLoaded(false);
                 return;
             }
         }
@@ -97,7 +98,7 @@ class InputParser {
                 .findRoomCommand(Commands.MAIN_COMMAND_START);
         if (!startCommand) {
             Messager.showErrorMessage("No starting room is defined!");
-            game.getAdventureManager().setLoaded(false);
+            TAP.getAdventureManager().setLoaded(false);
             return;
         }
         final String cmd = this.advData.get(this.counter + this.subCounter);
@@ -106,12 +107,13 @@ class InputParser {
         if (!initialJump4) {
             Messager.showErrorMessage(
                     "The defined starting room doesn't exist!");
-            game.getAdventureManager().setLoaded(false);
+            TAP.getAdventureManager().setLoaded(false);
             return;
         }
     }
 
-    protected void parseCommand(final String command) {
+    @Override
+    public void parseCommand(final String command) {
         boolean foundUnknown = false;
         String preParsedCommand = command;
         String[] commandArray = new String[] { preParsedCommand };
@@ -122,9 +124,9 @@ class InputParser {
             preParsedCommand = InputStripper.stripInput(preParsedCommand);
             // Substitute synonyms
             preParsedCommand = this.substituteSynonyms(preParsedCommand);
-            if (InputParser.isOmniCommand(preParsedCommand)) {
+            if (InputParser0.isOmniCommand(preParsedCommand)) {
                 // Found omni command
-                final int cmdLen = InputParser
+                final int cmdLen = InputParser0
                         .omniCommandLength(preParsedCommand);
                 this.parseOmniCommand(preParsedCommand, cmdLen);
             } else {
@@ -138,7 +140,7 @@ class InputParser {
             }
         }
         if (foundUnknown) {
-            InputParser.displayUnknownCommandMessage(command);
+            InputParser0.displayUnknownCommandMessage(command);
         }
     }
 
@@ -208,7 +210,7 @@ class InputParser {
                 final String terminator = res.substring(res.length() - 1);
                 if (!terminator.equals(Commands.SPECIAL_END_DELIMITER)) {
                     // Malformed special command found
-                    InputParser.displayMalformedSpecialCommandMessage(res);
+                    InputParser0.displayMalformedSpecialCommandMessage(res);
                     return;
                 }
                 String warpKillTest = "";
@@ -231,7 +233,7 @@ class InputParser {
                         alterArg = specialCmd.substring(6);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -255,7 +257,7 @@ class InputParser {
                         checkArg = specialCmd.substring(6);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -301,7 +303,7 @@ class InputParser {
                         questArg = specialCmd.substring(6);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -535,12 +537,12 @@ class InputParser {
                         killArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
                     Messager.showMessage(killArg);
-                    TAP.getGame().getAdventureManager().setLoaded(false);
+                    TAP.getAdventureManager().setLoaded(false);
                 } else if (warpKillTest
                         .equalsIgnoreCase(Commands.SPECIAL_COMMAND_WARP)) {
                     // Process warp command
@@ -549,7 +551,7 @@ class InputParser {
                         warpArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -565,7 +567,7 @@ class InputParser {
                         onceGrabArg = specialCmd.substring(9);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -596,7 +598,7 @@ class InputParser {
                         onceGainArg = specialCmd.substring(9);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -617,7 +619,7 @@ class InputParser {
                         gainArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -639,7 +641,7 @@ class InputParser {
                         grabArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -670,7 +672,7 @@ class InputParser {
                         haveArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -710,7 +712,7 @@ class InputParser {
                         dropArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -739,7 +741,7 @@ class InputParser {
                         loseArg = specialCmd.substring(5);
                     } else {
                         // No arguments specified
-                        InputParser.displayNoArgsForSpecialCommandMessage(
+                        InputParser0.displayNoArgsForSpecialCommandMessage(
                                 specialCmd);
                         return;
                     }
@@ -767,7 +769,7 @@ class InputParser {
             }
         } catch (final RuntimeException re) {
             // Parse error
-            InputParser.displayParsingErrorMessage(res);
+            InputParser0.displayParsingErrorMessage(res);
         }
     }
 
@@ -856,7 +858,7 @@ class InputParser {
             }
         } catch (final RuntimeException re) {
             // Parse error
-            InputParser.displayParsingErrorMessage(cmd);
+            InputParser0.displayParsingErrorMessage(cmd);
         }
     }
 
