@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import com.puttysoftware.tap.Game;
 import com.puttysoftware.tap.Messager;
 import com.puttysoftware.tap.TAP;
 import com.puttysoftware.tap.adventure.parsers.InputParser;
@@ -41,12 +40,11 @@ public class InputParser0 implements InputParser {
     // Methods
     @Override
     public void doInitial(final ArrayList<String> data) {
-        final Game game = TAP.getGame();
         this.advData = data;
         final boolean initialJump1 = this.warpToRoom(Commands.ROOM_MAIN);
         if (!initialJump1) {
             Messager.showErrorMessage("The main room doesn't exist!");
-            game.getAdventureManager().setLoaded(false);
+            TAP.getAdventureManager().setLoaded(false);
             return;
         }
         final boolean synonymCommand = this
@@ -58,7 +56,7 @@ public class InputParser0 implements InputParser {
             final boolean initialJump2 = this.warpToRoom(synArg);
             if (!initialJump2) {
                 Messager.showErrorMessage("The synonym table doesn't exist!");
-                game.getAdventureManager().setLoaded(false);
+                TAP.getAdventureManager().setLoaded(false);
                 return;
             }
             // Load synonym list
@@ -87,12 +85,12 @@ public class InputParser0 implements InputParser {
                     this.subCounter++;
                 }
             }
-            TAP.getGame().getGUIManager().clearCommandOutput();
+            TAP.getGame().clearCommandOutput();
             // Go back
             final boolean initialJump3 = this.warpToRoom(Commands.ROOM_MAIN);
             if (!initialJump3) {
                 Messager.showErrorMessage("The main room doesn't exist!");
-                game.getAdventureManager().setLoaded(false);
+                TAP.getAdventureManager().setLoaded(false);
                 return;
             }
         }
@@ -100,7 +98,7 @@ public class InputParser0 implements InputParser {
                 .findRoomCommand(Commands.MAIN_COMMAND_START);
         if (!startCommand) {
             Messager.showErrorMessage("No starting room is defined!");
-            game.getAdventureManager().setLoaded(false);
+            TAP.getAdventureManager().setLoaded(false);
             return;
         }
         final String cmd = this.advData.get(this.counter + this.subCounter);
@@ -109,7 +107,7 @@ public class InputParser0 implements InputParser {
         if (!initialJump4) {
             Messager.showErrorMessage(
                     "The defined starting room doesn't exist!");
-            game.getAdventureManager().setLoaded(false);
+            TAP.getAdventureManager().setLoaded(false);
             return;
         }
     }
@@ -544,7 +542,7 @@ public class InputParser0 implements InputParser {
                         return;
                     }
                     Messager.showMessage(killArg);
-                    TAP.getGame().getAdventureManager().setLoaded(false);
+                    TAP.getAdventureManager().setLoaded(false);
                 } else if (warpKillTest
                         .equalsIgnoreCase(Commands.SPECIAL_COMMAND_WARP)) {
                     // Process warp command

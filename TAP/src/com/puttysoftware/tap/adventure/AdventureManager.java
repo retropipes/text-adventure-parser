@@ -63,14 +63,14 @@ public class AdventureManager {
         } catch (final URISyntaxException use) {
             // Ignore
         }
-        AdventureManager.loadAdventureImpl(path);
+        this.loadAdventureImpl(path);
     }
 
     public void loadAdventure() {
-        AdventureManager.loadAdventureImpl(null);
+        this.loadAdventureImpl(null);
     }
 
-    private static void loadAdventureImpl(final String initialDir) {
+    private void loadAdventureImpl(final String initialDir) {
         final Game game = TAP.getGame();
         String dirname, filename, extension;
         final FileDialog fd = new FileDialog(game.getOutputFrame(),
@@ -85,7 +85,7 @@ public class AdventureManager {
             final File file = new File(dirname + filename);
             extension = AdventureManager.getExtension(file);
             if (extension.equals(Extension.getAdventureExtension())) {
-                AdventureManager.loadFile(dirname + filename);
+                this.loadFile(dirname + filename);
             } else {
                 Messager.showMessage(
                         "You opened something other than an adventure file. Select an adventure file, and try again.");
@@ -93,24 +93,24 @@ public class AdventureManager {
         }
     }
 
-    private static void loadFile(final String filename) {
+    private void loadFile(final String filename) {
         final Game game = TAP.getGame();
         final String sg = "Adventure";
         try {
             final File adventureFile = new File(filename);
             final Adventure gameAdventure = new Adventure();
-            game.getGUIManager().clearCommandOutput();
+            game.clearCommandOutput();
             gameAdventure.loadAdventure(adventureFile);
-            game.getAdventureManager().setAdventure(gameAdventure);
-            game.getAdventureManager().handleDeferredSuccess(true);
+            this.setAdventure(gameAdventure);
+            this.handleDeferredSuccess(true);
         } catch (final FileNotFoundException fnfe) {
             Messager.showMessage("Loading the " + sg.toLowerCase()
                     + " file failed, probably due to illegal characters in the file name.");
-            game.getAdventureManager().handleDeferredSuccess(false);
+            this.handleDeferredSuccess(false);
         } catch (final IOException ie) {
             Messager.showMessage("Loading the " + sg.toLowerCase()
                     + " file failed, because " + ie.getMessage());
-            game.getAdventureManager().handleDeferredSuccess(false);
+            this.handleDeferredSuccess(false);
         } catch (final Exception ex) {
             TAP.getErrorLogger().logError(ex);
         }
