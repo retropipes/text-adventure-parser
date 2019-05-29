@@ -35,6 +35,7 @@ public class TAP {
             NativeIntegration ni = new NativeIntegration();
             ni.configureLookAndFeel();
             ni.enableSuddenTermination();
+            ni.setOpenFileHandler(TAP.advMgr);
             ni.setQuitHandler(new Quitter());
             // Start game
             TAP.advMgr = new AdventureManager();
