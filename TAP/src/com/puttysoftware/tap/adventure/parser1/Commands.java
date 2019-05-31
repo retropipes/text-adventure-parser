@@ -72,5 +72,11 @@ class Commands {
     static final char TEST_QUEST_STATUS_LESS = 'x';
     static final char INCREMENT_QUEST_STATUS = 'I';
     static final char DECREMENT_QUEST_STATUS = 'i';
+    static final char DEFINE_SYNONYM = '=';
+    static final char SHOW_INVENTORY = '+';
+    static final char SHOW_EQUIPMENT = '-';
+    static final char SHOW_QUEST_STATUS = ':';
+    static final char SHOW_QUEST_DETAILS = ';';
+    static final char SHOW_STATISTICS = '_';
     // ... other characters here ...
 }
