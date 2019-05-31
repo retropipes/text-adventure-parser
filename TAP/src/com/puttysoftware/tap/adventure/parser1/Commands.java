@@ -64,13 +64,13 @@ class Commands {
     static final char SUBROUTINE_ENDS = 'm';
     static final char SUCCESS_RETURN_SUBROUTINE = 'T';
     static final char FAILURE_RETURN_SUBROUTINE = 't';
-    // static final char UNUSED = 'Z';
-    // static final char UNUSED = 'z';
-    // static final char UNUSED = 'Y';
-    // static final char UNUSED = 'y';
-    // static final char UNUSED = 'X';
-    // static final char UNUSED = 'x';
-    // static final char UNUSED = 'I';
-    // static final char UNUSED = 'i';
+    static final char BEGIN_QUEST = 'Z';
+    static final char END_QUEST = 'z';
+    static final char SET_QUEST_STATUS = 'Y';
+    static final char TEST_QUEST_STATUS_EQUAL = 'y';
+    static final char TEST_QUEST_STATUS_GREATER = 'X';
+    static final char TEST_QUEST_STATUS_LESS = 'x';
+    static final char INCREMENT_QUEST_STATUS = 'I';
+    static final char DECREMENT_QUEST_STATUS = 'i';
     // ... other characters here ...
 }
