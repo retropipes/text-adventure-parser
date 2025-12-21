@@ -1,0 +1,27 @@
+    <key>CFBundleDocumentTypes</key>
+    <array>
+    <dict>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>tap</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>adventure.icns</string>
+            <key>CFBundleTypeName</key>
+            <string>TAP Adventure</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+   </dict>
+   <dict>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>tap2</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>adventure.icns</string>
+            <key>CFBundleTypeName</key>
+            <string>TAP 2 Adventure</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+   </dict>
+    </array>

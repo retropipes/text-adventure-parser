@@ -1,0 +1,12 @@
+[main]
+Welcome to Object State Test!
+start=statetest
+
+[statetest]
+This room has various objects in it.
+open chest=[alter chest open] && You open the chest.
+close chest=[alter chest closed] && You close the chest.
+take chest=[check chest open]
+=What do you think you're doing, taking an open chest with you?
+=The chest is too heavy to take, even when closed.
+die=[kill The chest comes to life and kills you!]

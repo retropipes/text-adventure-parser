@@ -1,0 +1,29 @@
+[main]
+Welcome to Test Adventure!
+start=testing room
+
+[testing room]
+This is a test room.
+north=[warp portal]
+south=[warp flatlands]
+east=[warp darkness]
+west=[warp death]
+
+[portal]
+This is a room with a teleport in it.
+south=[warp testing room]
+teleport=[kill Congratulations, you win!]
+
+[flatlands]
+This is a boring flatland.
+north=[warp testing room]
+
+[darkness]
+You can't see anything in this room.
+west=[warp testing room]
+
+[death]
+This room looks dangerous...
+east=[warp testing room]
+north=Oof! You bump into a wall!
+south=[kill You have fallen into a spike trap. Game Over!]

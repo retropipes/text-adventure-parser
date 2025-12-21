@@ -1,0 +1,40 @@
+== Version History ==
+
+V3.0.0 (04/15/2011): Removed all the flags, which are now always turned on.
+Removed TAP2 support, as it is no longer needed. Added new commands to
+manipulate and check the state of objects not in inventory. Made the parser
+handle syntax errors better by giving more helpful feedback.
+
+V2.0.0 (09/06/2010): Added support for a new extension - TAP2. Such files have
+all flags defined in the version 1.X.Y series turned on by default. Older files
+still work without modification.
+
+V1.6.0 (08/30/2010): Added support for complex command input - meaning a
+sequence of commands separated by "and" or "then". Each command in the sequence
+will be executed in entry order. A new flag has been added to enable this feature.
+
+V1.5.0 (08/24/2010): Added support for substitution of synonyms via a new
+flag and a per-adventure synonym table.
+
+V1.4.0 (08/19/2010): Added support for stripping input of words that hinder
+the parser with a new flag.
+
+V1.3.0 (08/15/2010): Added support for three new inventory commands: gain
+(like grab but without messages), oncegrab (like grab but only works once),
+and oncegain (oncegrab and gain put together).
+
+V1.2.0 (08/12/2010): Added support for testing for the presence of multiple
+items in a have command by splitting each item to test for with " & ". Added
+support for grabbing multiple items at once with a grab command by separating
+each item to grab with " & ". Have tests fail if ALL of the listed items are
+not present, while grabs only fail if NONE of the items could be grabbed.
+Cleaned up the code a bit. Fixed the game's website in the about dialog.
+
+V1.1.0 (08/10/2010): Added command chaining support. The game no longer prints
+"You are in room name" when you enter a room. The game no longer clears the
+output when warping to another room. Fixed a parser bug causing commands shorter
+than 4 letters to crash with a StringIndexOutOfBoundsException. Fixed a file
+reading bug that caused the file to never be closed. Fixed various other parser
+issues.
+
+V1.0.0 (08/09/2010): Initial Release.

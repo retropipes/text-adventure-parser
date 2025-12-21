@@ -1,0 +1,14 @@
+[main]
+Welcome to Drop Test!
+start=getstuff
+
+[getstuff]
+This room has stuff in it.
+take stuff=[grab trash can & garbage & cover]
+You take the three items.
+You already have the stuff.
+put stuff back=[drop trash can & garbage & cover]
+You put the three items back where you found them.
+You don't have the stuff you're trying to put back.
+discard stuff=[lose trash can & garbage & cover]
+win game=[kill You win!]

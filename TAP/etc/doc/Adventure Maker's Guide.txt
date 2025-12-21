@@ -1,0 +1,217 @@
+== Adventure Maker's Guide for Version 3 ==
+
+Adventure files are plain text files, with a .tap extension, in the format
+described below.
+
+Basic command syntax:
+
+[room name]
+room description
+command1=result
+command2=[special arg]
+
+All adventure files must have a room called main. This room must have a command
+called start, whose result must be the name of a room - this room will be where
+gameplay begins. The main room must also have as the first line after the room
+name, a welcome message for the entire adventure (which can be blank).
+
+An example:
+
+[main]
+Welcome to Tutorial!
+start=square
+
+[square]
+... rest of adventure file goes here ...
+
+Rooms can also have commands that trigger a special result. There are 2 such
+commands:
+
+command3=[warp square]
+
+and
+
+command4=[kill A message to display when the player dies]
+
+The warp command takes as its only argument the name of the room to warp to.
+The kill command terminates the adventure and displays the message following.
+Inventory is supported too.
+
+An example may help clarify:
+
+[main]
+Welcome to Inventory Test!
+start=triangle
+
+[triangle]
+... rest of adventure file goes here ...
+
+A new omni-command - show items - is available (this command works no matter
+what room you are in, and displays the contents of your inventory).
+
+There are also two special commands for managing inventory:
+
+command5=[grab the name of an item]
+Text to display when the player does NOT have the item
+Text to display when the player has the item already
+
+command6=[have the name of an item]
+=Text to display, or a special command to run when the player does NOT have it
+=Text to display, or a special command to run when the player has it
+
+The grab command adds an item to your inventory, if you don't have it already.
+The have command is used for branching on whether or not an item is in inventory.
+Have commands can NOT be nested. The = signs before any text or special commands
+are required. The special command can be any other non-inventory-related command,
+or the gain, lose, or oncegain commands.
+
+Command results can be chained together, in order to do more than one thing in a
+command line. Command results to be chained together are separated with
+" && " (without the "quotes"). Command result chains may be used anywhere a result
+is required.
+
+Another example:
+
+[main]
+Welcome to Chain Test!
+start=circle
+
+[circle]
+tryme=This is some text to chain. && This is a second line of text.
+... rest of adventure file goes here ...
+
+The grab and have commands can also take multiple items as an argument, separated
+by " & " (without the "quotes"). This tells the parser to proceed only if ALL items
+named are present in inventory, and fails the test otherwise, in the case of a
+have command. Grab commands work differently with this enhancement: instead of
+failing if ANY of the items could not be grabbed, they fail only if NONE of the
+items named could be grabbed.
+
+In addition to that, two more commands for working with inventory have been added:
+the drop and lose commands. Multiple items can be listed in a drop or lose command
+by separating each one with " & ", just like grab and have commands. Drop and lose
+commands succeed if ALL named items are present in inventory, and fail otherwise -
+much like how have commands work. Drop commands also have two messages following
+them, just like grab commands do. The first one is displayed if the drop succeeds.
+The second is displayed if the drop fails. If the drop or lose succeeds, ALL listed
+items are removed from inventory. Unlike drop commands, lose commands do not
+display any messages upon success or failure - they just remove the item(s) from
+your inventory - and are therefore safe to use in have command results.
+
+An example:
+[main]
+Welcome to Drop Test!
+start=getstuff
+
+[getstuff]
+This room has stuff in it.
+take stuff=[grab trash can & garbage & cover]
+You take the three items.
+You already have the stuff.
+put stuff back=[drop trash can & garbage & cover]
+You put the three items back where you found them.
+You don't have the stuff you're trying to put back.
+discard stuff=[lose trash can & garbage & cover]
+... rest of adventure file goes here ...
+
+The oncegrab, oncegain, and gain commands are also supported for managing inventory.
+Multiple items can be listed in any of these commands by separating each one with
+" & ", just like the grab command. Oncegrab and oncegain commands succeed if ALL
+named items are present in inventory AND have not already been grabbed, and fail
+otherwise - much like how grab commands work, except that you can only grab the
+item(s) one time - even if you lose them later. Gain commands succeed if the items
+gained are NOT already present in inventory, and fail otherwise - just like grab
+commands. Oncegrab commands also have two messages following them, just like grab
+commands do. The first one is displayed if the grab succeeds. The second is
+displayed if the grab fails. Gain and oncegain commands do NOT have messages after
+them, unlike oncegrab.
+
+An example for oncegrab:
+
+[main]
+Welcome to Grab Once Test!
+start=getstuff
+
+[getstuff]
+This room has stuff in it.
+take stuff=[oncegrab trash can & garbage & cover]
+You take the three items.
+You already took the stuff, and cannot take it again.
+put stuff back=[drop trash can & garbage & cover]
+You put the three items back where you found them.
+You don't have the stuff you're trying to put back.
+discard stuff=[lose trash can & garbage & cover]
+... rest of adventure file goes here ...
+
+Input stripping will be performed next, before any command processing takes place.
+The words that are stripped from the user's input are "a", "an", and "the".
+
+Synonym substitution will be performed after input stripping, but before any command
+processing takes place. The words that are substituted in the user's input are
+determined by a synonym table, located in a room whose name is the value of a
+command in the main room called "syntab". The synonym table's format is like this:
+[synonym table name]
+
+keyword1, synonym1, synonym2, ...
+keyword2, synonym1, synonym2, ...
+...
+
+That blank line after the synonym table name is important. If it is omitted, the
+first line of the synonym table will not be parsed.
+
+If the syntab= entry is omitted from the main room, synonym substitution will not
+be performed.
+
+An example will help clarify:
+
+[main]
+Welcome to Synonym Test!
+start=testing room
+syntab=synonyms
+
+[synonyms]
+
+north, n
+south, s
+west, w
+east, e
+
+[testing room]
+This is a test room.
+north=You look to the north, but nothing is there.
+south=You look to the south, but nothing is there.
+east=You look to the east, but nothing is there.
+west=You look to the west, but nothing is there.
+... rest of adventure file goes here ...
+
+The keywords are substituted for anything else in the same line in the table. If
+the user types "n", the game will understand this to mean "north", by looking up
+"n" in the synonym table.
+
+Compound commands will be understood by the input parser as a chain of commands
+separated by "and" or "then", and will be executed in the order entered.
+
+Objects whose state needs to be tracked, but are not in inventory, can
+now be done via the new commands check and alter.
+
+The alter command modifies the state of an object, adding it to the list if it
+does not exist already. The check command behaves very much like the have command
+does for inventory, except that it works with object states, instead. The alter 
+command supports modifying multiple objects at once - list each object then its
+new state, in pairs separated with spaces. Note that the = signs are REQUIRED
+for both results of a check command.
+
+An example:
+
+[main]
+Welcome to Object State Test!
+start=statetest
+
+[statetest]
+This room has various objects in it.
+open chest=[alter chest open] && You open the chest.
+close chest=[alter chest closed] && You close the chest.
+take chest=[check chest open]
+=What do you think you're doing, taking an open chest with you?
+=The chest is too heavy to take, even when closed.
+... rest of adventure file goes here ...
