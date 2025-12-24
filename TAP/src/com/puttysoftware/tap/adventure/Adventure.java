@@ -21,41 +21,40 @@ public class Adventure {
 
     // Constructor
     public Adventure() {
-        super();
+	super();
     }
 
     // Methods
     protected void loadAdventure(final File advFile) throws IOException {
-        this.loadData(advFile);
-        this.createParser();
+	this.loadData(advFile);
+	this.createParser();
     }
 
     protected void loadExampleAdventure(final ArrayList<String> data) {
-        this.advData = data;
-        this.createParser();
+	this.advData = data;
+	this.createParser();
     }
 
     private void createParser() {
-        this.parser = ParserFactory.getParser(ParserFactory.GRAMMAR_0);
-        this.parser.doInitial(this.advData);
+	this.parser = ParserFactory.getParser(ParserFactory.GRAMMAR_0);
+	this.parser.doInitial(this.advData);
     }
 
     private void loadData(final File advFile) throws IOException {
-        try (final FileInputStream fis = new FileInputStream(advFile);
-                final ResourceStreamReader rsr = new ResourceStreamReader(
-                        fis)) {
-            this.advData = new ArrayList<>();
-            String line = "";
-            while (line != null) {
-                line = rsr.readString();
-                if (line != null) {
-                    this.advData.add(line);
-                }
-            }
-        }
+	try (final FileInputStream fis = new FileInputStream(advFile);
+		final ResourceStreamReader rsr = new ResourceStreamReader(fis)) {
+	    this.advData = new ArrayList<>();
+	    String line = "";
+	    while (line != null) {
+		line = rsr.readString();
+		if (line != null) {
+		    this.advData.add(line);
+		}
+	    }
+	}
     }
 
     public void parseCommand(final String command) {
-        this.parser.parseCommand(command);
+	this.parser.parseCommand(command);
     }
 }

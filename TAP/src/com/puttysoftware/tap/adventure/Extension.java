@@ -11,6 +11,6 @@ class Extension {
 
     // Methods
     static String getAdventureExtension() {
-        return Extension.ADVENTURE_EXTENSION;
+	return Extension.ADVENTURE_EXTENSION;
     }
 }

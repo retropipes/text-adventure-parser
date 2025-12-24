@@ -18,31 +18,31 @@ public class TAP {
 
     // Methods
     public static AdventureManager getAdventureManager() {
-        return TAP.advMgr;
+	return TAP.advMgr;
     }
-    
+
     public static Game getGame() {
-        return TAP.game;
+	return TAP.game;
     }
 
     public static ErrorLogger getErrorLogger() {
-        return TAP.debug;
+	return TAP.debug;
     }
 
     public static void main(final String[] args) {
-        try {
-            // Integrate with host platform
-            NativeIntegration ni = new NativeIntegration();
-            ni.configureLookAndFeel();
-            ni.enableSuddenTermination();
-            ni.setOpenFileHandler(TAP.advMgr);
-            ni.setQuitHandler(new Quitter());
-            // Start game
-            TAP.advMgr = new AdventureManager();
-            TAP.game = new Game();
-            TAP.game.showGUI();
-        } catch (final Throwable t) {
-            TAP.getErrorLogger().logError(t);
-        }
+	try {
+	    // Integrate with host platform
+	    NativeIntegration ni = new NativeIntegration();
+	    ni.configureLookAndFeel();
+	    ni.enableSuddenTermination();
+	    ni.setOpenFileHandler(TAP.advMgr);
+	    ni.setQuitHandler(new Quitter());
+	    // Start game
+	    TAP.advMgr = new AdventureManager();
+	    TAP.game = new Game();
+	    TAP.game.showGUI();
+	} catch (final Throwable t) {
+	    TAP.getErrorLogger().logError(t);
+	}
     }
 }
