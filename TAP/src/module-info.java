@@ -1,5 +1,7 @@
 module com.puttysoftware.tap {
-    requires com.puttysoftware.integration;
-    requires com.puttysoftware.desktop;
+    requires org.retropipes.diane.fileio.utility;
+    requires org.retropipes.diane.gui;
+    requires org.retropipes.diane.integration;
+    requires org.retropipes.diane.internal;
     requires java.desktop;
 }

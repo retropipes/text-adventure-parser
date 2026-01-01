@@ -5,8 +5,9 @@ Any questions should be directed to the author via email at: tap@worldwizard.net
  */
 package com.puttysoftware.tap;
 
-import com.puttysoftware.errorlogger.ErrorLogger;
-import com.puttysoftware.integration.NativeIntegration;
+import org.retropipes.diane.Diane;
+import org.retropipes.diane.integration.Integration;
+
 import com.puttysoftware.tap.adventure.AdventureManager;
 
 public class TAP {
@@ -14,7 +15,6 @@ public class TAP {
     private static Game game;
     private static AdventureManager advMgr;
     private static final String PROGRAM_NAME = "TAP";
-    private static final ErrorLogger debug = new ErrorLogger(TAP.PROGRAM_NAME);
 
     // Methods
     public static AdventureManager getAdventureManager() {
@@ -25,14 +25,19 @@ public class TAP {
 	return TAP.game;
     }
 
-    public static ErrorLogger getErrorLogger() {
-	return TAP.debug;
+    public static void logError(final Throwable t) {
+	Diane.handleError(t);
+    }
+
+    public static void logNonFatalError(final Throwable t) {
+	Diane.handleWarning(t);
     }
 
     public static void main(final String[] args) {
 	try {
+	    Diane.installDefaultErrorHandler(PROGRAM_NAME);
 	    // Integrate with host platform
-	    NativeIntegration ni = new NativeIntegration();
+	    Integration ni = Integration.integrate();
 	    ni.configureLookAndFeel();
 	    ni.enableSuddenTermination();
 	    ni.setOpenFileHandler(TAP.advMgr);
@@ -42,7 +47,7 @@ public class TAP {
 	    TAP.game = new Game();
 	    TAP.game.showGUI();
 	} catch (final Throwable t) {
-	    TAP.getErrorLogger().logError(t);
+	    TAP.logError(t);
 	}
     }
 }

@@ -14,8 +14,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import com.puttysoftware.commondialogs.CommonDialogs;
-import com.puttysoftware.fileutils.ResourceStreamReader;
+import org.retropipes.diane.fileio.utility.ResourceStreamReader;
+import org.retropipes.diane.gui.dialog.CommonDialogs;
+
 import com.puttysoftware.tap.Game;
 import com.puttysoftware.tap.Messager;
 import com.puttysoftware.tap.TAP;
@@ -78,7 +79,7 @@ public class AdventureManager implements OpenFilesHandler {
 	    }
 	} catch (final IOException ioe) {
 	    Messager.showMessage("Loading examples failed, because a file I/O error occurred.");
-	    TAP.getErrorLogger().logNonFatalError(ioe);
+	    TAP.logNonFatalError(ioe);
 	}
     }
 
@@ -165,14 +166,14 @@ public class AdventureManager implements OpenFilesHandler {
 	    this.handleDeferredSuccess(true);
 	} catch (final FileNotFoundException fnfe) {
 	    Messager.showMessage("Loading failed, because the file was not found?");
-	    TAP.getErrorLogger().logNonFatalError(fnfe);
+	    TAP.logNonFatalError(fnfe);
 	    this.handleDeferredSuccess(false);
 	} catch (final IOException ie) {
 	    Messager.showMessage("Loading failed, because a file I/O error occurred.");
-	    TAP.getErrorLogger().logNonFatalError(ie);
+	    TAP.logNonFatalError(ie);
 	    this.handleDeferredSuccess(false);
 	} catch (final Exception ex) {
-	    TAP.getErrorLogger().logError(ex);
+	    TAP.logError(ex);
 	}
     }
 

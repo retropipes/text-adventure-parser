@@ -118,7 +118,7 @@ public class Game {
 		// Process command
 		game.processCommandInput(cmd);
 	    } catch (final RuntimeException re) {
-		TAP.getErrorLogger().logError(re);
+		TAP.logError(re);
 	    }
 	}
     }

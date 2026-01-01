@@ -10,7 +10,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.puttysoftware.fileutils.ResourceStreamReader;
+import org.retropipes.diane.fileio.utility.ResourceStreamReader;
+
 import com.puttysoftware.tap.adventure.parsers.InputParser;
 import com.puttysoftware.tap.adventure.parsers.ParserFactory;
 
